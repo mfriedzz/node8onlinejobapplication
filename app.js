@@ -17,16 +17,33 @@ app.get('/', function(req, res) {
 
 // displays a list of applicants
 app.get('/applicants', function(req, res){
-
-	res.render('applicants')
+	Job.find({}, function(err, data){
+		if (err){
+			console.log("Cannot read job applicant");
+		} else {
+			console.log(data);
+			res.render( 'applications', {applicantData:data});
+		}
+	})
+	
 });
 
 // creates and applicant
 app.post('/applicant', function(req, res){
 	// Here is where you need to get the data
 	// from the post body and store it in the database
+	var jobInstance = new Job(req.body);
+
+// Save Instance
+ 	jobInstance.save(function(err, result){
+ 		console.log('error', err);
+ 		console.log('result', result);
+
+ 	});
+ 	res.redirect('/applicants');
+
 	console.log(req.body);
-	res.redirect('/success');
+	//res.redirect('/success');
 	//res.send('Success');
 });
 
