@@ -5,12 +5,12 @@ block content
 		h1 Applicants
 		p: a(href="#") Add Another Applicant
 		ul#applications.list-unstyled
-			for job in applicantData
-					li name #{job.applicantName}
-					li Job Desc: #{ job.applicantDescription}
-					li Applicant experience: #{job.applicantExperience}
-					li Applicant Years of experience: #{ job.applicantExperience}
-					li Applicant Job Description: #{ job.applicantJobDesc}
+			for job in appJobData
+					li name #{job.name}
+					li Job Desc: #{job.bio}
+					li Applicant experience: #{job.skills}
+					li Applicant Years of experience: #{ job.years}
+					li Applicant Job Description: #{ job.why}
 						a.btn.btn-primary.view(href="/#{job._id}") details
 						a.btn.btn-danger.delete(href='/deleteApplicant/#{job._id}') delete
 

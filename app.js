@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var Job = require('./models/jobSchema.js');
+var indexController = require('./controllers/index.js');
 mongoose.connect('mongodb://localhost/mfapp');
 
 var app = express();
@@ -17,12 +18,13 @@ app.get('/', function(req, res) {
 
 // displays a list of applicants
 app.get('/applicants', function(req, res){
-	Job.find({}, function(err, data){
+	Job.find({}, function(err, result){
 		if (err){
 			console.log("Cannot read job applicant");
 		} else {
-			console.log(data);
-			res.render( 'applications', {applicantData:data});
+			console.log(result);
+			res.render( 'applications', {appJobData:result});
+			
 		}
 	})
 	
@@ -32,6 +34,7 @@ app.get('/applicants', function(req, res){
 app.post('/applicant', function(req, res){
 	// Here is where you need to get the data
 	// from the post body and store it in the database
+	console.log(req.body);
 	var jobInstance = new Job(req.body);
 
 // Save Instance
@@ -50,6 +53,8 @@ app.post('/applicant', function(req, res){
 app.get('/success', function(req, res ){
 	res.render('success');
 })
+app.get('/deleteApplicant/:id', indexController.deleteApplicant);
+app.get('applicant/getApplicant', indexController.getApplicant);
 
 
 var server = app.listen(8441, function() {

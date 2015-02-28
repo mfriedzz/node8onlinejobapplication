@@ -1,11 +1,11 @@
 var mongoose = require('mongoose');
 
 var jobSchema = mongoose.Schema({
-	applicantName: String,
-	applicantDescription: String,
-	applicantExperience: String,
-	applicantYearsExperience: Number,
-	applicantJobDesc: String
+	name: String,
+	bio: String,
+	skills: String,
+	years: Number,
+	why: String
 });
 
 var Job = mongoose.model('Job', jobSchema);
